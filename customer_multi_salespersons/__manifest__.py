@@ -9,6 +9,6 @@
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["base", "sale","smart_api"],
+    "depends": ["base", "sale"],
     "data": ["security/ir.model.access.csv","views/partner_view.xml"],
 }
