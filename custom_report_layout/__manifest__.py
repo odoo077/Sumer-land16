@@ -1,4 +1,4 @@
- -*- coding: utf-8 -*-
+   coding: utf-8 
 {
     'name': "Custom Report Layout",
     'version': '16.0.1.0.0',
