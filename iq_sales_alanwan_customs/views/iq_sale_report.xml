@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+<template id="iq_salereport_inheritnew" inherit_id="sale.report_saleorder_document">
+
+	<xpath expr="//t//t[@t-set='address']" position="replace">
+        <div class="f_customer_info" style="direction:rtl;text-align: right;" >
+			
+          <strong>  اسم العميل  :<span class="text-right" style="font-size:16px !important;direction:rtl;text-align: right;"  t-field="doc.partner_id"  />    </strong>
+          <br/>   
+             <strong>  العنوان  :<span class="text-right" style="font-size:16px !important;direction:rtl;text-align: right;"  t-field="doc.iq_address"  />    </strong>
+             <br/>
+              <strong>  الهاتف  :<span class="text-right o_force_ltr"  style="font-size:16px !important;text-align: right;"  t-field="doc.iq_phone"  />    </strong>
+                <br/>
+              <strong>  اسم اليوزر  :<span class="text-right" style="font-size:16px !important;direction:rtl;text-align: right;"  t-field="doc.create_uid"  />    </strong>
+                <br/>
+              <strong>  اسم المندوب  :<span class="text-right" style="font-size:16px !important;direction:rtl;text-align: right;"  t-field="doc.user_id"  />    </strong>
+			</div>
+			
+			
+		</xpath>
+		
+		 <xpath expr="//t//div[hasclass('page')]//div[@id='informations']//div[@t-if='doc.user_id.name']" position="replace">
+		</xpath> 
+        <xpath expr="//div[@id='total']" position="replace">
+                <div class="text-right">
+                    <table align="left" width="30%" dir="rtl">
+                        <tr class="text-center o_total" t-if="doc.iq_total_disc">
+                            <td>الاجمالي قبل الخصم</td>
+                            <td>
+                                <h6>
+                                    <field t-field="doc.iq_total_befor_disc"/>
+                                </h6>
+                            </td>
+
+                        </tr>
+                        <tr class="text-center o_total" t-if="doc.iq_total_disc">
+                            <td>الخصم</td>
+                            <td>
+                                <h6>
+                                    <field t-field="doc.iq_total_disc"/>
+                                </h6>
+                            </td>
+
+                        </tr>
+                        <tr class="text-center o_total">
+                            <td>الاجمالي</td>
+                            <td>
+                                <h6>
+                                    <field t-field="doc.amount_total"/>
+                                </h6>
+                            </td>
+
+                        </tr>
+                    </table>
+                </div>            
+            </xpath>
+
+		
+        
+    </template>
+    
+    
+    </odoo>

@@ -1,0 +1,30 @@
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="product_pricelist_view_gournal" model="ir.ui.view">
+        <field name="name">product_pricelist_view_gournal</field>
+        <field name="model">product.pricelist</field>
+        <field name="inherit_id" ref="product.product_pricelist_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="journal_id" groups="account.group_account_invoice"/>
+                <!-- Add your fields or attributes here -->
+            </xpath>
+
+        </field>
+    </record>
+    <!-- Inherit Form View to Modify it -->
+    <record id="view_partner_form_is_cash" model="ir.ui.view">
+        <field name="name">view_partner_form_is_cash</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="is_cash"/>
+                <!-- Add your fields or attributes here -->
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

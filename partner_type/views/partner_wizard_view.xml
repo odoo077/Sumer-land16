@@ -1,0 +1,45 @@
+
+<odoo>
+
+    <record id="view_res_partner_filter_type" model="ir.ui.view">
+        <field name="name">Filter Partner Type</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <field name="parent_id" position="after">
+                <separator />
+                <filter string="Retail" name="Retail" domain="[('partner_type', '=', 'retail')]"/>
+                <filter string="Wholesale" name="Wholesale" domain="[('partner_type', '=', 'wholesale')]"/>
+            </field>
+            <filter name="group_country" position="after">
+                <filter string="Customer Type" name="customer_type" domain="[]" context="{'group_by':'partner_type'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_partner_from_change_Type" model="ir.ui.view">
+        <field name="name">partner.update.Type.wizard</field>
+        <field name="model">partner.update.type</field>
+        <field name="arch" type="xml">
+            <form string="Change Type">
+                <group>
+                    <field name="partner_type" string="Type" />
+                </group>
+                <footer>
+                    <button string='Update' name="update_partner_type" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_partner_from_change_type_action" model="ir.actions.act_window">
+        <field name="name">Update Customers Type</field>
+        <field name="res_model">partner.update.type</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_partner_from_change_Type"/>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="base.model_res_partner"/>
+        <field name="groups_id" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+    </record>
+</odoo>

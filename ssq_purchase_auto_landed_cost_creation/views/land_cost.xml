@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_stock_landed_cost_form_partner" model="ir.ui.view">
+            <field name="name">view_stock_landed_cost_form_partner</field>
+            <field name="model">stock.landed.cost</field>
+            <field name="inherit_id" ref="stock_landed_costs.view_stock_landed_cost_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='additional_costs']/field[@name='cost_lines']/tree[1]/field[@name='name']" position="before">
+                    <field name="partner_id"/>
+                    <!-- Add your fields or attributes here -->
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='additional_costs']/field[@name='cost_lines']/tree[1]/field[@name='currency_id']" position="attributes">
+                    <attribute name="force_save">1</attribute>
+
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

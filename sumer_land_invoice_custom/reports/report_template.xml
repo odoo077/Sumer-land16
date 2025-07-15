@@ -1,0 +1,28 @@
+<odoo>
+    <template id="report_invoice_document_sumer_land_invoice_custom" inherit_id="account.report_invoice_document">
+        <xpath expr="//address" position="after">
+            <t t-if="o.partner_id.mobile">
+                <span class="o_force_ltr"><t t-esc="o.partner_id.mobile"/></span>
+            </t>
+        </xpath>
+    </template>
+    <template id="web_address_layout_inherited" inherit_id="web.address_layout">
+        <xpath expr="//t[@t-if='address']/div" position="replace">
+            <t t-set="colclass" t-value="('col-sm-5' if report_type == 'html' else 'col-5') + ' text-left'"/>
+
+            <div class="address row">
+                <t t-if="information_block">
+                    <t t-set="colclass" t-value="'col-5 offset-1'"/>
+                </t>
+                <div name="address" t-att-class="colclass">
+                    <t t-esc="address"/>
+                </div>
+                <t t-if="information_block">
+                    <div name="information_block" class="col-6">
+                        <t t-out="information_block"/>
+                    </div>
+                </t>
+            </div>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+  
+
+    <record id="paperformat_SMART" model="report.paperformat">
+      <field name="name">Smart A4</field>
+      <field name="default" eval="True"/>
+      <field name="format">custom</field>
+      <field name="page_height">279</field>
+      <field name="page_width">210</field>
+      <field name="orientation">Portrait</field>
+      <field name="margin_top">40</field>
+      <field name="margin_bottom">40</field>
+      <field name="margin_left">7</field>
+      <field name="margin_right">7</field>
+      <field name="header_line" eval="False"/>
+      <field name="header_spacing">35</field>
+      <field name="dpi">90</field>
+    </record>
+
+    <record id="paperformat_SMARTA4" model="report.paperformat">
+      <field name="name">Smart Half A4</field>
+      <field name="default" eval="True"/>
+      <field name="format">custom</field>
+      <field name="page_height">140</field>
+      <field name="page_width">210</field>
+      <field name="orientation">Portrait</field>
+      <field name="margin_top">40</field>
+      <field name="margin_bottom">40</field>
+      <field name="margin_left">7</field>
+      <field name="margin_right">7</field>
+      <field name="header_line" eval="False"/>
+      <field name="header_spacing">35</field>
+      <field name="dpi">90</field>
+    </record>
+      <report
+            string="Payment Receipt Modern"
+            menu="False"
+            id="custom_action_report_payment_receipt"
+            model="account.payment"
+            report_type="qweb-pdf"
+            paperformat="paperformat_SMART"
+            name="smart_reports_payment.report_payment_receipt"
+            file="smart_reports_payment.report_payment_receipt"
+            print_report_name="'payment Slip - %s - %s' % (object.partner_id.name or '', object.name)"
+            
+        />
+   
+    
+    <template id="report_payment_receipt" inherit_id="account.report_payment_receipt">          
+                <xpath expr="//t[@t-call='account.report_payment_receipt_document']" position="replace" >
+                    <t t-call="web.html_container">
+                        <t t-foreach="docs" t-as="o">
+                            <t t-call="smart_reports_payment.modern_report_payment_receipt_document" t-lang="request.env.lang"/>
+                        </t>
+                     </t>
+                 </xpath>
+    </template>
+  </data>
+</odoo>

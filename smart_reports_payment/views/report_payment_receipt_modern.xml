@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="modern_report_payment_receipt_document">
+    <t t-set="lang" t-value="o.company_id.partner_id.lang"/>
+    <t t-call="web.external_layout">
+      <t t-set="o" t-value="o.with_context(lang=lang)"/>
+      <div class="page natifont" dir="rtl" >
+
+        <h2 class="naticenter ">
+          <span  t-if="o.payment_type=='outbound'">ســند صــــــرف</span>
+          <span  t-if="o.payment_type=='inbound'"> ســند قبــــــض </span>
+          <span  t-if="o.payment_type=='transfer'">تــحويل داخـلـي</span>
+        </h2>
+        <h4 class="naticenter ">
+          <span class="borderB"  t-if="o.payment_type=='outbound'"> PAYMENT VOUCHER </span>
+          <span  class="borderB"  t-if="o.payment_type=='inbound'"> RECEIPT VOUCHER </span>
+          <span class="borderB"   t-if="o.payment_type=='transfer'"> INTERNAL VOUCHER </span>
+        </h4>
+        <h4 class="naticenter ">
+          <span t-field="o.seq_last_number" style="color:red;" class=""/>
+        </h4>
+        <div class="row natifont" style="margin-top:-20px;" >
+          <div class="col-12" style="padding-top:-20px;border:solid;border-width:0px;">
+            <div class="row natifont"  >
+              <div t-if="o.amount"  class="col-6">
+                <strong class="text-right ml-1"  style="float:right;" align="right" >
+                  المبلغ
+                </strong>
+                <t t-if="o.currency_id == 2">
+
+                  <span class="text-right px-2 ml-1"  style="float:right;border:solid;border-width:1px;" align="right" t-field="o.amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+
+                </t>
+                <span class="text-right px-2 ml-1"  style="float:right;border:solid;border-width:1px;" align="right" t-field="o.amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                <span class="text-right px-2 ml-1"  style="float:right;border:solid;border-width:1px;" align="right" >
+                ع.د
+                </span>
+                <span class="text-right px-2"  style="float:right;border:solid;border-width:1px;" align="right" >
+                $
+                </span>
+
+              </div>
+              <div style=""  class="ml-0 col-2"/>
+
+              <div dir="ltr" class="ml-0 col-4">
+                <strong> المــــوافق </strong>
+                <strong class="m-0" t-field="o.with_context(lang=o.company_id.partner_id.lang).date" t-options="{'widget': 'date'}"/>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <br/>
+        <br/>
+        <div class="row natifont" >
+          <div class="col-12" style="border:solid;border-width:0px;">
+            <div class="row mt32 mb32 natifont"  >
+              <div  t-if="o.partner_id" class="col-4">
+                <strong class="text-right" style="float:right;" align="right" t-if="o.payment_type=='outbound'">اصرفوا للسيد/السادة:</strong>
+
+                <strong class="text-right" style="float:right;"  align="right" t-if="o.payment_type=='inbound'" >استلمنا من السيد/السادة:</strong>
+
+              </div>
+              <div style="" t-if="o.partner_id" class="ml-0 col-5 inputdashed">
+                <p  class="m-0" t-field="o.partner_id"/>
+              </div>
+
+              <div t-if="o.partner_id" dir="ltr" class="ml-0 col-3">
+                <strong  class="text-left" align="left" style="float:left;"  t-if="o.payment_type=='outbound'" >Pay To Mrs:</strong>
+                <strong class="text-left" align="left" style="float:left;"  t-if="o.payment_type=='inbound'" >Received From Mrs:</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br/>
+        <div class="row natifont" >
+          <div class="col-12" style="border:solid;border-width:0px;">
+            <div class="row mt32 mb32 natifont"  >
+              <div  t-if="o.amount" class="col-3">
+                <strong class="text-right" style="float:right;" align="right" >مبـلـغ و قـدره</strong>
+              </div>
+                <div t-if="o.amount" style="text-align:right;"  class="ml-0 col-6  inputdashed">
+                  <span t-field="o.amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                  <t t-if="'num_word' in o.fields_get()">
+                    <span>  (  </span>
+                    <span class="m-0" t-field="o.num_word"/>
+                    <span>  )  </span>
+                  </t>
+                </div>
+
+              <div dir="ltr" t-if="o.amount" class="ml-0 col-3">
+                <strong align="left" style="float:left;" class="text-left" >Amount:</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br/>
+        <div class="row natifont" >
+          <div class="col-12" style="border:solid;border-width:0px;">
+            <div class="row mt32 mb32 natifont"  >
+              <div class="col-2">
+                <strong class="text-right" style="float:right;" align="right">نقداً/شيك رقم</strong>
+              </div>
+                <div  class="ml-0 col-2 inputdashed">
+<!--                  <p class="m-0" t-if="o.move_id" t-field="o.move_id.id"/>-->
+                </div>
+              <div dir="ltr" class="ml-0 col-3">
+                <strong align="left" style="float:left;" class="text-left" >Cash/Cheque No</strong>
+              </div>
+
+              <div class="col-2 ml-0">
+                <strong style="float:right;" align="right">البنك</strong>
+              </div>
+                <div   class="ml-0 col-2 inputdashed">
+                  <t t-if="o.partner_bank_id">
+                    <p class="m-0" t-if="o.partner_bank_id.bank_id" t-field="o.partner_bank_id.bank_id.name"/>
+                  </t>
+                </div>
+              <div dir="ltr"  class="ml-0 col-1">
+                <strong align="left" style="float:left;" class="text-left" >Bank:</strong>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <br/>
+        <div class="row natifont" >
+          <div class="col-12" style="border:solid;border-width:0px;">
+            <div class="row mt32 mb32 natifont"  >
+              <div   class="col-2">
+                <strong class="text-right"  style="float:right;" align="right">وذلك مقابل</strong>
+              </div>
+              <t t-if="o.ref" >
+               <div class="ml-0 col-8 " align="center"  style="vertical-align: middle;">
+                <p class="m-0"  align="center" style="line-height: 1.8;border-bottom: 1px dashed #000; display: inline;text-align:center" t-field="o.ref"/>
+                </div>
+              </t>
+              <t t-else="">
+                <div class="ml-0 col-8 " style="vertical-align: middle;border-bottom: 1px dashed #000;">
+                </div>
+              </t>
+
+              <div  dir="ltr"  class="ml-0 col-2">
+                <strong align="left" style="float:left;"  >Being: </strong>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br/>
+        <br/>
+        <div class="row natifont" >
+          <div class="col-12" style="border:solid;border-width:0px;">
+            <div style="margin:50px" class="row mt50 mb50 natifont"  >
+              <div  style="vertical-align: middle;text-align:center" class="col-4">
+                <strong style="margin-top:0pt">المحاسب           Accountant</strong>
+              </div>
+              <div class="col-4 "/>
+              <div  style="vertical-align: middle;text-align:center" class="col-4">
+                <strong style="margin-top:0pt">المستلم              Receiver</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br/>
+        <br/>
+        <div class="row natifont" >
+          <div class="col-12 " style="margin-top:-20px;border:solid;border-width:0px;">
+            <div style="margin:50px" class="row mt20 mb50 natifont"  >
+              <div  style="vertical-align: middle;border-bottom:1pt dashed black;text-align:center" class="col-4">
+                <p class="m-0" t-if="o.user_id" t-field="request.env.user.name"/>
+              </div>
+              <div class="col-4 "/>
+              <div  style="vertical-align: middle;border-bottom:1pt dashed black;text-align:center" class="col-4">
+                <t t-if="o.payment_type=='outbound'">
+                    <p class="m-0" t-if="o.partner_id" t-field="o.partner_id.name"/>
+                </t>
+                <t t-if="o.payment_type=='inbound'">
+                    <p class="m-0" t-if="o.user_id" t-field="o.user_id.name"/>
+                </t>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br/>
+      </div>
+    </t>
+  </template>
+</odoo>

@@ -1,0 +1,23 @@
+{
+    'name': 'Product Updates',
+    'version': '15.0',
+    'category': '',
+    'sequence': 14,
+    'author': 'Ahmed Abd Elrazek -Smart',
+    'company': '',
+    'license': 'LGPL-3',
+    'website': '',
+    'summary': '',
+    'depends': ['base','hr', 'product','stock','so_modifications'],
+    'data': [
+        # 'security/contact.xml',
+        # 'security/rules.xml',
+        # 'security/ir.model.access.csv',
+        'views/product.xml',
+    ],
+    'demo': [],
+    'images': [],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}

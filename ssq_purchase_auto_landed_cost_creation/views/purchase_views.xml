@@ -1,0 +1,54 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="purchase_order_form_inherit">
+            <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet//div[@name='button_box']" position="inside">
+                    <button string="Landed Costs" type="object" name="action_view_landed_costs" class="oe_stat_button" icon="fa-money" attrs="{'invisible': [('landed_costs_ids', '=', [])]}" groups="stock.group_stock_manager"/>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Landed Costs" name="landed_cost" groups="stock.group_stock_manager">
+                        <field name="landed_cost_lines" attrs="{'readonly':[('state','=','purchase')]}">
+                            <tree editable="bottom">
+                                <field name="product_id" options="{'no_create_edit':True,'no_quick_create':True}" attrs="{'readonly':[('is_landed_cost_created','=',True)]}"/>
+                                <field name="name" attrs="{'readonly':[('is_landed_cost_created','=',True)]}"/>
+                                <field name="partner_id" attrs="{'readonly':[('is_landed_cost_created','=',True)],'required':True}"/>
+                                <field name="account_id" attrs="{'readonly':[('is_landed_cost_created','=',True)],'required':True}" force_save="1"/>
+                                <field name="split_method" attrs="{'readonly':[('is_landed_cost_created','=',True)]}"/>
+                                <field name="currency_id" required="1"/>
+                                <field name="amount" total="sum"/>
+                                <field name="rate" digits="[12,12]"  readonly="1" force_save="1"/>
+                                <field name="price_unit" attrs="{'readonly':[('is_landed_cost_created','=',True)]}" total="sum"/>
+                                <field name="payment_value" attrs="{'readonly':[('is_landed_cost_created','=',True)]}" total="sum"/>
+                                <field name="is_landed_cost_created" invisible="1"/>
+                                <field name="payment_state"  />
+                                <field name="branch_id" invisible="1"/>
+                                <field name="state" invisible="1"/>
+                                <button name="create_payment" type="object" string="Create Payment" attrs="{'invisible':['|','|',('state','!=','purchase'),('partner_id','=',False),('payment_state','=',True)]}"/>
+                            </tree>
+                        </field>
+                        <field name="landed_costs_ids" invisible="1"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+      <record id="purchase_order_form_matrix" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit.matrix</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+<!--          <xpath expr="//notebook" position="before">-->
+<!--              <button name="update_purchase_price" type="object" string="UPDATE"/>-->
+<!--          </xpath>-->
+<!--          <xpath expr="//tree/field[@name='price_unit']" position="before">-->
+<!--              <field name="purchase_price" force_save="1" attrs="{'readonly': [('invoice_lines', '!=', [])]}"/>-->
+<!--          </xpath>-->
+             <xpath expr="//tree/field[@name='price_unit']" position="after">
+              <field name="line_product_landed_cost" groups="stock.group_stock_manager" readonly="1" attrs="{'invisible': [('parent.landed_costs_ids', '=', [])]}" />
+          </xpath>
+        </field>
+      </record>
+    </data>
+</odoo>

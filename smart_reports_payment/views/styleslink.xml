@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+        <template id="smart_font_web_assets_common" inherit_id="web.assets_common">
+		    <xpath expr="." position="inside">
+		          <link rel='stylesheet' href="/smart_reports_payment/static/src/scss/almaraifont.scss" type="text/scss"/>
+                  <link rel='stylesheet' href="/smart_reports_payment/static/src/scss/cairofont.scss" type="text/scss"/>
+                  <link rel='stylesheet' href="/smart_reports_payment/static/src/scss/droidfont.scss" type="text/scss"/>
+                  <link rel="stylesheet" href="/smart_reports_payment/static/src/css/web_style.css" />
+            </xpath>
+        </template>
+
+        <template id="smart_report_report_assets_common"  inherit_id="web.report_assets_common">
+            <xpath expr="." position="inside">
+                <link rel='stylesheet' href="/smart_reports_payment/static/src/scss/almaraifont.scss" type="text/scss"/>
+                <link rel='stylesheet' href="/smart_reports_payment/static/src/scss/variables.scss" type="text/scss"/>
+                <link rel='stylesheet' href="/smart_reports_payment/static/src/scss/invoice_style.scss" type="text/scss"/>
+            </xpath>
+        </template>
+	</data>
+</odoo>
